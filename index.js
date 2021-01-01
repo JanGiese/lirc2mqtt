@@ -70,7 +70,10 @@ lirc.on('error', err => {
 
 lirc.on('receive', (remote, command, repeats) => {
     log.debug('receive', remote, command, repeats);
-    const topic = config.n + '/status/' + remote + '/' + command;
+    //"lirc/status/yamaha/KEY_POWER2"
+    // const topic = config.n + '/status/' + remote + '/' + command;
+    // homeassistant/binary_sensor/garden/state
+    const topic = '/homeassistant/input_boolean/' + remote + '_' + command + '/state';
     let payload;
     if (config.json) {
         payload = JSON.stringify({
