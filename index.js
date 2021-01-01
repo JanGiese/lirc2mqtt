@@ -73,16 +73,17 @@ lirc.on('receive', (remote, command, repeats) => {
     //"lirc/status/yamaha/KEY_POWER2"
     // const topic = config.n + '/status/' + remote + '/' + command;
     // homeassistant/binary_sensor/garden/state
-    const topic = '/homeassistant/input_boolean/' + remote + '_' + command + '/state';
-    let payload;
-    if (config.json) {
-        payload = JSON.stringify({
-            val: parseInt(repeats, 10)
-        });
-    } else {
-        payload = String(parseInt(repeats, 10));
-    }
+    const topic = 'lirc/status';
+    let payload = remote + '_' + command;
+//    if (config.json) {
+//        payload = JSON.stringify({
+//            val: parseInt(repeats, 10)
+//        });
+//    } else {
+//        payload = String(parseInt(repeats, 10));
+//    }
     log.debug('mqtt >', topic, payload);
+    //console.debug(topic);
     mqtt.publish(topic, payload);
 });
 
